@@ -70,11 +70,87 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
 //-----------------eddit tapped---------------------------
+//------------------addTapped-------------------
+    @IBAction func addTapped(sender: UIBarButtonItem)
+    {
+        
+        
+            let myAlert = UIAlertController(title: "Add College", message: nil, preferredStyle: .Alert)
+            myAlert.addTextFieldWithConfigurationHandler { (alertTextfeild) -> Void in
+                alertTextfeild.placeholder = "Add College Name" // add place holder text
+            }
+            
+            myAlert.addTextFieldWithConfigurationHandler { (realTextfeild) -> Void in
+                realTextfeild.placeholder = "Add Location" // add place holder text
+            }
+       
+            myAlert.addTextFieldWithConfigurationHandler { (realTextfeild) -> Void in
+            realTextfeild.placeholder = "Add Number of Students" // add place holder text
+            }
+        
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            myAlert.addAction(cancelAction)
+            
+            let addAction = UIAlertAction(title: "Add", style: .Default) { (addAction) -> Void in
+                let name = myAlert.textFields![0] as UITextField
+                let location = myAlert.textFields![1] as UITextField
+                let number = myAlert.textFields![2] as UITextField
+                
+                
+                
+                self.colleges.append(CollegeClass(CollegeName: "\(name)", Location: "\(location)", NumberOfStudents: 23))
+                self.myTableView.reloadData()
+                
+                
+            }
+            myAlert.addAction(addAction)
+            
+            
+            self.presentViewController(myAlert, animated: true, completion: nil)//presents the alert view
+        }
+//---------------addTapped--------------------------------
+    
+//--------------------commitEditingStyle------------------
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if (editingStyle == .Delete)
+        {
+            
+            colleges.removeAtIndex(indexPath.row)
+            myTableView.reloadData() // reload table view
+        }
+
+    }
+//--------------commitEditingStyle----------------------
+//--------------canmove---------------------------------
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
+        return true
+    
+    }
+//--------------canmove---------------------------------
+//----------------moveatrow----------------------------
+    
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath)
+    {
+        let collegew = colleges[sourceIndexPath.row]
+        colleges.removeAtIndex(sourceIndexPath.row)
+        colleges.insert(collegew, atIndex: destinationIndexPath.row)
+
+    }
+//----------------moveatrow------------------------------
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        let detailview = segue.destinationViewController as! ViewControllerTwo
+        let selectedrow = myTableView.indexPathForSelectedRow?.row
+        
+        detailview.college = colleges[selectedrow!]
+    }
     
     
-
-   
-
+    
 
 }
 
