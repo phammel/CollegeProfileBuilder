@@ -99,7 +99,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 
                 
                 
-                self.colleges.append(CollegeClass(CollegeName: "\(name)", Location: "\(location)", NumberOfStudents: 23))
+                
+                self.colleges.append(CollegeClass(CollegeName: name.text!, Location: location.text!, NumberOfStudents: (Int)(number.text!)!, Image: UIImage(named: "College")!))
                 self.myTableView.reloadData()
                 
                 
