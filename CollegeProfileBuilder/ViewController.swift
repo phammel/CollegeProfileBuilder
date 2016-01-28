@@ -140,7 +140,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         colleges.insert(collegew, atIndex: destinationIndexPath.row)
 
     }
-//----------------moveatrow------------------------------
+//----------------moveatrow---------------------------------
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
